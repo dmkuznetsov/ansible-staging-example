@@ -1,0 +1,26 @@
+---
+- name: Remove Apache
+  apt:
+    name: apache2
+    state: absent
+
+- name: Remove NGINX default dir
+  shell: "rm -rf /var/www/html/"
+
+- name: Install latest NGINX
+  apt:
+    name: nginx
+    state: latest
+
+- name: Start Nginx
+  service: name=nginx state=started enabled=yes
+
+- name: Remove default nginx config
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Allow Nginx Full
+  ufw:
+    rule: allow
+    name: Nginx Full

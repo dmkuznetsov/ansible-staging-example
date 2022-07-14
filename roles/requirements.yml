@@ -1,0 +1,13 @@
+---
+#- src: https://github.com/angristan/ansible-php-fpm
+#  scm: git
+#  version: master
+#  name: external-php-fpm
+#- src: https://github.com/angristan/ansible-postgresql
+#  scm: git
+#  version: master
+#  name: external-postgresql
+#- src: https://github.com/angristan/ansible-nginx
+#  scm: git
+#  version: master
+#  name: external-nginx

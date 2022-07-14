@@ -1,0 +1,9 @@
+---
+- name: Add SSH user
+  user:
+    name: "{{ item.user }}"
+    group: "docker"
+    shell: /bin/bash
+    append: no
+    create_home: yes
+  loop: "{{ virtual_hosts }}"

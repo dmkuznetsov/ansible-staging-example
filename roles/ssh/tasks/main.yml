@@ -1,0 +1,27 @@
+---
+#- name: Disallow root SSH access
+#  lineinfile:
+#    dest=/etc/ssh/sshd_config
+#    regexp="^PermitRootLogin"
+#    line="PermitRootLogin no"
+#    state=present
+#  notify: Restart SSHD
+
+- name: Disallow SSH password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+
+- name: Allow SSH authentication by key
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PubkeyAuthentication"
+    line: "PubkeyAuthentication yes"
+    state: present
+
+- name: Restart SSHD
+  service:
+    name: sshd
+    state: restarted

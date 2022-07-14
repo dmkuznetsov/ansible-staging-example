@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+Taskfile.yml
+vars/default.yml
+hosts/default.yml
+user-*
+templates/user*
+files/user*

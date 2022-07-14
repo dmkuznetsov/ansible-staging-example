@@ -1,0 +1,15 @@
+---
+- name: Restart NGINX
+  service:
+    name: nginx
+    state: restarted
+
+- name: Reload NGINX
+  service:
+    name: nginx
+    state: reloaded
+
+- name: Restart SSHD
+  service:
+    name: sshd
+    state: restarted

@@ -1,0 +1,27 @@
+---
+- name: Install SNAP
+  apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+  loop: [ "snapd", "python3-certbot-nginx" ]
+
+- name: Install SNAP core
+  snap:
+    name: core
+
+- name: Refresh SNAP core
+  command: snap refresh core
+
+- name: Install CERTBOT
+  snap:
+    name: certbot
+    classic: yes
+
+- name: Install certificates
+  command: certbot certonly --nginx -n --agree-tos --email "{{email}}" --redirect --domains "{{item.domain}}" --expand
+  loop: "{{ virtual_hosts }}"
+
+- name: Cron autoupdate CERTBOT
+  ansible.builtin.cron:
+    name: "certbot update"
+    minute: "0"
+    hour: "1"
+    job: 'certbot renew --post-hook "systemctl reload nginx"'

@@ -1,0 +1,19 @@
+---
+- name: Check if docker-compose already installed
+  stat:
+    path: "/usr/local/bin/docker-compose"
+  register: docker_compose
+
+- shell: uname -s
+  register: kernel_name
+
+- shell: uname -m
+  register: hardware_name
+
+- name: Install docker-compose from official github repo
+  get_url:
+    url : "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ kernel_name.stdout }}-{{ hardware_name.stdout }}"
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'
+  when: not docker_compose.stat.exists
+

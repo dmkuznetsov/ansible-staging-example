@@ -1,0 +1,8 @@
+---
+email: "example@email"
+docker_compose_version: "1.29.2"
+virtual_hosts:
+  - name: hostname
+    domain: "your-domain1.com"
+    proxy_pass: "http://127.0.0.1:1337"
+    user: "example_user"

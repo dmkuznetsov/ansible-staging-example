@@ -1,0 +1,30 @@
+---
+- hosts: staging
+  become: true
+  roles:
+    - aptitude
+    - ssh
+    - ssh-user
+    - ufw
+    - docker
+    - docker-compose
+    - nginx
+    - certbot
+  handlers:
+    - include_tasks: handlers/main.yml
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Update nginx hosts
+      template:
+        src: nginx-host.conf.j2
+        dest: "/etc/nginx/sites-enabled/{{ item.name }}.conf"
+        owner: "{{ item.user }}"
+        group: "docker"
+      with_items: "{{ virtual_hosts }}"
+
+    - name: Reload NGINX
+      service:
+        name: nginx
+        state: reloaded

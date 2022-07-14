@@ -1,0 +1,9 @@
+---
+staging:
+  hosts:
+    hostname:
+      ansible_connection: ssh
+      ansible_host: xxx.xxx.xxx.xxx
+      ansible_port: 22
+      ansible_user: root
+
